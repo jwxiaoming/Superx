@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>演示1</title>
+    <script src="js/main.js"></script>
+    <script src="js/OrbitControls.js"></script>
+</head>
+<style>
+
+</style>
+<body style="margin:0px; padding:0px;">
+ 
+</body>
+    <script>
+
+        var scene = new THREE.Scene();
+
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        renderer.setClearColor("yellow");
+
+        document.body.appendChild(renderer.domElement);
+
+        var geometry = new THREE.CubeGeometry(1,1,1);
+        var material = new THREE.MeshBasicMaterial({color:0xff0000});
+
+        var cube = new THREE.Mesh(geometry, material);
+        var controls;
+        initControls();
+        scene.add(cube);
+
+        camera.position.z = 5;
+
+        function render(){
+            requestAnimationFrame(render);
+            renderer.render(scene,camera);
+            controls.update();
+        }
+
+        render();
+        function initControls() {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.addEventListener('change', render);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.3;
+            controls.enableZoom = true;
+            controls.enablePan = true;
+            controls.rotateSpeed = 0.3;
+            controls.zoomSpeed = 0.5;
+            controls.autoRotateSpeed = 0.6;
+            controls.dampingFactor = 0.6;
+            controls.autoRotate = false;
+
+        }
+
+    </script>
+</html>
